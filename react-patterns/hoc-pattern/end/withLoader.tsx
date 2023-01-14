@@ -11,6 +11,7 @@ export default function withLoader(Element, url) {
         .then((res) => setData(res));
     }, []);
 
+    // in real life, you'd also want to account for if there's been an error
     if (!data) return <LoadingSpinner />;
 
     return <Element {...props} data={data} />;
