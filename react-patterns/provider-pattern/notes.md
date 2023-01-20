@@ -44,4 +44,39 @@ const TopNav = () => {
 };
 ```
 
-Or, instead of wrapping components 
+Or, instead of wrapping child components in `ThemeContext.Consumer`, you can use the hook pattern with `useContext`:
+
+```
+export const ThemeContext = React.createContext(null);
+
+export function useThemeContext() {
+  const { theme, setTheme } = useContext(ThemeContext);
+
+  return { theme, setTheme };
+}
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = React.useState("light");
+
+  return (
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+...
+
+const TopNav = () => {
+  const { theme } = useThemeContext();
+  return (
+    <div style={{ backgroundColor: theme === "light" ? "#fff" : "#000 " }}>
+      ...
+    </div>
+  );
+};
+```
+
+Then create hooks for different contexts to separate the provier's logic from the components that render the data.
+
+Warning: Components that consume the `Provider`'s context re-render whenever a value changes. This can cause performance issues If you aren't careful which components are consuming the context.
