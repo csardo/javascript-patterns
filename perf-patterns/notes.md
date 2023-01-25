@@ -26,3 +26,14 @@ Combination = ESBuild (a Go-based compiler, bundler, + minifier)
 
 <b>Tree Shaking</b> reduces bundle size by eliminating dead code
  - removes unused code from a js bundle (ie functions not referenced in code)
+
+<b>Static import</b> - a statically imported module is a module that's imported with the default `import` keyword.
+```
+import module1 from "./module1";
+```
+
+ - When a module is statically imported, a bundler traverses all the modules, and bundles them into one file.
+ - With react, you can import components from other files. The modules get executed as soon as the engine reaches the line on which we import them
+  - Loading instant dependencies: Statically imported components are instantly available to the user
+  - Optimizations: Statically imported modules can be statically analyzed and tree-shaken.
+  - Large bundle size: When importing all modules, you might include code that won't be necessary
