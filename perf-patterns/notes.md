@@ -37,3 +37,15 @@ import module1 from "./module1";
   - Loading instant dependencies: Statically imported components are instantly available to the user
   - Optimizations: Statically imported modules can be statically analyzed and tree-shaken.
   - Large bundle size: When importing all modules, you might include code that won't be necessary
+
+
+<b>Dynamic import</b> - import parts of your code on demand.
+ - statically imported modules are all included in the final bundle of your app, even components that don't need to be rendered right away
+ - could lead to slow initial load (client needs to download/parse entire bundle)
+
+Implementation:
+ - In React, we can dynamically load a component by using `React.Suspense` with `React.lazy`.
+ - The Suspense component receives a fallback, that gets rendered while the client is fetching the bundle (like "loading..." text).
+
+Pros: faster load, smaller initial bundle size
+Cons: may shift layout if your fallback component is very different size than rendered component, may be longer loading times for user. Try to only lazy load components not used on initial render.
