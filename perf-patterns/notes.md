@@ -49,3 +49,36 @@ Implementation:
 
 Pros: faster load, smaller initial bundle size
 Cons: may shift layout if your fallback component is very different size than rendered component, may be longer loading times for user. Try to only lazy load components not used on initial render.
+
+<b>Import on visibility</b> - load non critical components when they are visible in the viewport. e.g. lazy load infinite scroll
+
+One way to dynamically import components on interaction, is by using the `Intersection Observer API`. There's a React hook called `react-intersection-observer` that we can use to easily detect whether a component is visible in the viewport.
+
+<b>Route based splitting</b> - If your application has multiple pages, we can use dynamic imports to only load the resources that are needed for the current route.
+
+If you're using `react-router` for navigation, you can wrap the Switch component in a `React.Suspense`, and import the routes using `React.lazy`. This automatically enables route-based code splitting.
+
+<b>Browser Hints</b>
+1. Prefetch - fetch and cache resources that may be requested soon.
+The browser will prefetch a resource when it is idle and has enough bandwidth.
+```
+<link rel="prefetch" href="./about.bundle.js" />
+```
+```
+// if you use webpack
+const About = lazy(() => import(/* webpackPrefetch: true */ "./about"));
+
+```
+2. Preload - inform the browser of critical resources before they are discovered.
+Can be used to fetch resources that are critical to the current navigation, such as fonts or images are instantly (not longer than 3 seconds after the initial load) visible on a landing page.
+With prefetch, the browser would only actually prefetch the resource if the conditions were good enough to not negatively affect the user experience.
+```
+<link rel="preload" href="./search-flyout.bundle.js" />
+```
+```
+/* webpackPreload: true */ 
+const SearchFlyout = lazy(() =>
+  import(/* webpackPreload: true */ "./SearchFlyout")
+);
+
+```
