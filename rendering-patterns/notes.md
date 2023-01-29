@@ -1,0 +1,19 @@
+How and where to fetch and render content is key to the perf of the app.
+
+<b>Web Vitals</b> are ways to measure how well a website performs. 
+1. TTB: time to first byte. Time it takes for client to receive first byte of page content
+2. FCP: first contentful paint. Time it takes to render the first piece of content after navigation
+3. LCP: largest contentful paint. Time it takes to load + render page's main content
+4. TTI: Time to interactive. Time from from the page starts loading to whne it's reliably responding to user input quickly
+5. CLS: cumulative layout shift. Measures visual stability to avoid unexpected layout shift
+6. FIP: First input delay. Time from when the user interacts with the page to the time when the event handlers are able to run
+
+<h4>Glossary</b>
+ - Compiling: Converting JavaScript into native machine code - Execution time: The time it takes to execute the previously fetched, parsed, and compiled data
+ - Hydration: Attaching handlers to a DOM node whose HTML contents were server-rendered, making the component interactive
+ - Idle: The browser's state when it's not performing any action 
+ - Loading time: The time it takes to fetch the data from the server 
+ - Main thread: The thread on which the browser executes all the JavaScript, performs layout, reflows, and garbage collection 
+ - Parsing: Converting an HTML source into DOM nodes, and generating an AST 
+ - Processing: Parsing, compiling, and executing the previously fetched data 
+ - Processing time: The time it takes to parse and compile the previously fetched data
