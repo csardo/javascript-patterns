@@ -8,7 +8,7 @@ How and where to fetch and render content is key to the perf of the app.
 5. CLS: cumulative layout shift. Measures visual stability to avoid unexpected layout shift
 6. FIP: First input delay. Time from when the user interacts with the page to the time when the event handlers are able to run
 
-<h4>Glossary</b>
+<b>Glossary</b>
  - Compiling: Converting JavaScript into native machine code - Execution time: The time it takes to execute the previously fetched, parsed, and compiled data
  - Hydration: Attaching handlers to a DOM node whose HTML contents were server-rendered, making the component interactive
  - Idle: The browser's state when it's not performing any action 
@@ -17,3 +17,21 @@ How and where to fetch and render content is key to the perf of the app.
  - Parsing: Converting an HTML source into DOM nodes, and generating an AST 
  - Processing: Parsing, compiling, and executing the previously fetched data 
  - Processing time: The time it takes to parse and compile the previously fetched data
+
+
+<b>Client side rendering</b> - render UI in the browser
+1. client requests HTML from server
+2. server reponds with barebones html
+3. browser parses and renders HTML
+4. client requests and downloads javascript (via `script` tag)
+5. browser executes js, renders content
+
+So you need 2 files: one that has barebones html with an element js can append content to, and a js file, which contains methods to update the DOM tree and dynamically render data.
+
+Pros:
+ - interactivity. Rendered content is instantly interactive. The js bundle can directly add event listeners to DOM nodes and uses are never left with a visible but non interactive page
+ - single server round trip. The entire web app is loaded on first request
+
+Cons:
+ - large bundle size = longer it takes browser to download and execute the js before the first content is visible
+ - SEO. Large bundles/waterfall of api requests may result in content not being rendered fast enought for a crawler to index it.
