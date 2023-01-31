@@ -35,3 +35,21 @@ Pros:
 Cons:
  - large bundle size = longer it takes browser to download and execute the js before the first content is visible
  - SEO. Large bundles/waterfall of api requests may result in content not being rendered fast enought for a crawler to index it.
+
+<b>Static rendering</b> - deliver pre-rendered html content that was generated when the site was built.
+1. client requests HTML from server
+2. server returns requested HtML with all of the elements included
+3. browser parses and renders content
+4. client requests JS bundle from the server
+5. browser hydrates elements (binds event listeners to static html)
+
+When you use react out of the box, it will always default to client side rendering.
+ - but you can use next.js to statically render
+
+Pros:
+ - cacheability. Pre-rendered HTML files can be cached/served by a global cdn
+ - seo
+ - availability. always online, even when your backend db goes down
+ - load. the db or api won't need to be hit on every request
+Cons:
+ - dynamic data. If a statically generated page needs dynamic content, for example from an external data source, it needs to fetch this client-side. This can result in a long LCP, and higher server costs.
